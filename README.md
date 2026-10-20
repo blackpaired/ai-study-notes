@@ -125,3 +125,7 @@ To change the design (colours, fonts), edit `<skills-folder>/study-notes/templat
 - Facts come from your materials. "Why" explanations and mnemonics partly come from general knowledge. **If anything contradicts your lecture or textbook, your lecture wins.**
 - The proofreading agent catches a lot, but it is not guaranteed to catch everything.
 - Every run uses your AI usage (tokens / plan limits), and many PDF pages mean more usage.
+
+---
+
+*Dieses Repo wurde mit Hilfe von Claude Opus 5.5 erstellt.*
