@@ -16,12 +16,12 @@ Argument (optional): path to the folder or files containing the materials. If mi
 ### 1. Read the materials
 - List the folder. For every file without a matching `.md`: `markitdown "file.pdf" -o "file.md"`.
 - An **empty or nearly empty `.md`** means the PDF contains only images (scan / "print to PDF"). Check with `pdftotext file.pdf - | head`.
-  - **Tables and important pages:** render the pages as images (`pdftoppm -r 130 -png file.pdf <scratchpad>/p`) and **look at them yourself** (Read tool). Tesseract scrambles table columns.
+  - **Tables and important pages:** render the pages as images (`pdftoppm -r 130 -png file.pdf <temp-folder>/p`, use a temporary folder outside the materials) and **look at them yourself** if you can view images. Tesseract scrambles table columns.
   - Long running text: OCR with `tesseract image.png - -l eng` (add more languages as needed, e.g. `deu+eng`) is fine.
 - Never modify or delete the original files.
 
 ### 2. Ask the user how the notes should look
-Use **AskUserQuestion** (one round, up to 4 questions), adapted to the subject. Pattern:
+Ask one round of up to 4 questions, adapted to the subject. If your environment has a tool for multiple-choice questions, use it; otherwise ask them as a short numbered list in chat. Pattern:
 - **Structure:** How to organize it? (e.g. by nerve / by region / both). Mark the option that shows the most connections as "(Recommended)".
 - **Content** (multiSelect): e.g. connections with reasoning, derivations (location → function), clinical relevance/applications, mnemonics.
 - **Scope:** everything or only a part.
@@ -69,16 +69,20 @@ legend:
 - `>` quotes become blue info boxes.
 
 ### 4. Proofreading
-Start the **`study-notes-checker`** agent (Agent tool, `subagent_type: "study-notes-checker"`). Give it:
+The proofreading instructions are in `study-notes-checker.md` in this skill's folder (installed together with the skill).
+- **If your AI tool supports subagents:** start the `study-notes-checker` agent if it is installed, otherwise a general subagent with the content of `study-notes-checker.md` as its task. A fresh agent that did not write the notes finds more errors.
+- **If not:** do the check yourself as a separate, deliberate pass that follows `study-notes-checker.md` step by step. Re-read the sources instead of relying on memory.
+
+Give the checker:
 - the path to the notes,
 - the paths of all source files (`.md`, and for image-only PDFs also the original PDF or the rendered page images).
-If the agent is not available (e.g. because it is only loaded after restarting Claude Code), start a `general-purpose` agent with the content of `~/.claude/agents/study-notes-checker.md` as its task.
 
 Check its findings and apply the justified corrections. Briefly tell the user what was corrected.
 
 ### 5. Build the PDF
+Run `build_pdf.sh` from this skill's folder:
 ```bash
-~/.claude/skills/study-notes/build_pdf.sh "<folder>/<Topic>_Connections.md"
+<skill-folder>/build_pdf.sh "<folder>/<Topic>_Connections.md"
 ```
 The PDF is created next to the `.md`. Then check 2–3 pages (`pdftoppm -r 60 -png -f N -l N …` and view the image): tables correct, boxes detected, colours right. If not: fix the Markdown and rebuild.
 
