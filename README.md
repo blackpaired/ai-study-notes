@@ -52,6 +52,7 @@ mkdir -p <skills-folder> <agents-folder>
 cp -r skills/study-notes <skills-folder>/
 cp agents/study-notes-checker.md <skills-folder>/study-notes/
 cp agents/study-notes-checker.md <agents-folder>/
+chmod +x <skills-folder>/study-notes/build_pdf.sh
 ```
 
 Then restart your AI agent.
@@ -122,7 +123,9 @@ legend:
 ---
 ```
 
-All fields except `title` are optional. To change the design (colours, fonts), edit `<skills-folder>/study-notes/template.html`. If you run `install.sh` again later, your changed template is kept as `template.html.backup`.
+All fields except `title` are optional.
+
+To change the design (colours, fonts), copy `<skills-folder>/study-notes/template.html` to `my-template.html` in the same folder and edit the copy. `build_pdf.sh` uses it automatically, and `install.sh` keeps it when you update.
 
 ## Important
 
