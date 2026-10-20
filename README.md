@@ -128,4 +128,4 @@ To change the design (colours, fonts), edit `<skills-folder>/study-notes/templat
 
 ---
 
-*This repo was created with the help of Claude Opus 5.5.*
+*This repo was created with the help of Claude Opus 5.5*
