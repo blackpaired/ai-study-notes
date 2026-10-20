@@ -1,6 +1,6 @@
-# Claude Learning Instructions
+# AI Learning Instructions
 
-A [Claude Code](https://claude.com/claude-code) skill that turns your study materials (PDFs, lecture notes, slides, even scans) into study notes that explain **why** things are the way they are. You don't just get a list of facts. A separate proofreading agent checks every fact against your sources, and the result is exported as a nicely formatted PDF.
+A skill for **terminal AI agents** (AI coding agents / agentic CLIs such as Claude Code, Codex CLI, Gemini CLI, OpenCode …) that turns your study materials (PDFs, lecture notes, slides, even scans) into study notes that explain **why** things are the way they are. You don't just get a list of facts. A separate proofreading agent checks every fact against your sources, and the result is exported as a nicely formatted PDF.
 
 ## What you get
 
@@ -13,15 +13,15 @@ A [Claude Code](https://claude.com/claude-code) skill that turns your study mate
 
 ## How it works
 
-1. **Read:** PDFs are converted to text with `markitdown`. For scanned pages, Claude looks at rendered page images directly, so tables don't get scrambled by OCR.
-2. **Ask:** Claude asks you 4 quick questions: structure, content, scope and style.
+1. **Read:** PDFs are converted to text with `markitdown`. For scanned pages, the AI looks at rendered page images directly, so tables don't get scrambled by OCR.
+2. **Ask:** The AI asks you 4 quick questions: structure, content, scope and style.
 3. **Write:** It creates `<Topic>_Connections.md` in your materials folder.
 4. **Check:** The proofreading agent checks everything, and justified corrections are applied.
 5. **Export:** `<Topic>_Connections.pdf` is created next to the notes.
 
 ## Requirements
 
-- [Claude Code](https://claude.com/claude-code)
+- A terminal AI agent that can read files and run shell commands. Skill and subagent support is a plus, but not required.
 - Linux or macOS (Windows via WSL)
 - [`markitdown`](https://github.com/microsoft/markitdown): `pipx install 'markitdown[all]'`
 - [`pandoc`](https://pandoc.org): `sudo pacman -S pandoc` / `sudo apt install pandoc` / `brew install pandoc`
@@ -37,21 +37,30 @@ cd claude-learning-instructions
 bash install.sh
 ```
 
-The script copies the skill to `~/.claude/skills/study-notes/` and the agent to `~/.claude/agents/`. It also shows which required programs are missing.
+By default the script copies the skill to `~/.claude/skills/study-notes/` and the agent to `~/.claude/agents/`. Claude Code and some other tools read skills from there (`SKILL.md` is an open format used by several AI agents). If your AI tool loads skills from a different folder, pass it:
+
+```bash
+bash install.sh ~/.my-ai-tool/skills ~/.my-ai-tool/agents
+```
+
+The script also shows which required programs are missing.
 
 To install by hand instead:
 
 ```bash
-mkdir -p ~/.claude/skills ~/.claude/agents
-cp -r skills/study-notes ~/.claude/skills/
-cp agents/study-notes-checker.md ~/.claude/agents/
+mkdir -p <skills-folder> <agents-folder>
+cp -r skills/study-notes <skills-folder>/
+cp agents/study-notes-checker.md <skills-folder>/study-notes/
+cp agents/study-notes-checker.md <agents-folder>/
 ```
 
-Then restart Claude Code.
+Then restart your AI agent.
+
+**Tool without skill support?** It still works: tell the AI *"follow the instructions in `<skills-folder>/study-notes/SKILL.md` for ~/Documents/Physiology/"*.
 
 ## Usage
 
-Put all materials for one exam into one folder, then in Claude Code type:
+Put all materials for one exam into one folder, then in your AI agent type:
 
 ```
 /study-notes ~/Documents/Physiology/
@@ -72,12 +81,14 @@ The notes are written in the language of your materials. Some useful follow-ups:
 @study-notes-checker check ~/Documents/Physiology/Heart_Connections.md against the materials in the same folder
 ```
 
+Without subagent support: *"proofread Heart_Connections.md following study-notes-checker.md"*.
+
 ### Rebuilding the PDF only
 
 If you edited the `.md` yourself, run:
 
 ```bash
-~/.claude/skills/study-notes/build_pdf.sh ~/Documents/Physiology/Heart_Connections.md
+<skills-folder>/study-notes/build_pdf.sh ~/Documents/Physiology/Heart_Connections.md
 ```
 
 ## Writing format
@@ -107,10 +118,14 @@ legend:
 ---
 ```
 
-To change the design (colours, fonts), edit `~/.claude/skills/study-notes/template.html`.
+To change the design (colours, fonts), edit `<skills-folder>/study-notes/template.html`.
 
 ## Important
 
 - Facts come from your materials. "Why" explanations and mnemonics partly come from general knowledge. **If anything contradicts your lecture or textbook, your lecture wins.**
 - The proofreading agent catches a lot, but it is not guaranteed to catch everything.
-- Every run uses your Claude usage, and many PDF pages mean more usage.
+- Every run uses your AI usage (tokens / plan limits), and many PDF pages mean more usage.
+
+---
+
+*This repo was created with the help of Claude Opus 5.5.*

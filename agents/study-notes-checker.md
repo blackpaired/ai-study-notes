@@ -12,7 +12,7 @@ You receive the path to the study notes and the paths of the sources. **You do n
 ## Procedure
 
 1. **Read the sources.** Read the source files. If a `.md` is empty or unreadable (scanned PDF), render the PDF pages with
-   `pdftoppm -r 130 -png <pdf> /tmp/checker-<name>/p` and look at the images with Read. If rendered page images
+   `pdftoppm -r 130 -png <pdf> /tmp/checker-<name>/p` and look at the images. If rendered page images
    already exist, use those.
 2. **Check every factual statement.** Go through the notes section by section and check every row of every table and every factual statement
    in running text and mnemonics against the source:
