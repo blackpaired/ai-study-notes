@@ -3,11 +3,16 @@
 # Usage: build_pdf.sh <input.md> [output.pdf]
 set -euo pipefail
 
+if [ $# -lt 1 ] || [ ! -f "$1" ]; then
+  echo "Usage: build_pdf.sh <input.md> [output.pdf]" >&2
+  exit 1
+fi
 in="$(cd "$(dirname "$1")" && pwd)/$(basename "$1")"
 out="${2:-${in%.md}.pdf}"
 case "$out" in /*) ;; *) out="$PWD/$out" ;; esac
 here="$(cd "$(dirname "$0")" && pwd)"
-work="$(mktemp -d)"
+# Work folder next to the output, not in /tmp: snap browsers (e.g. Chromium on Ubuntu) cannot see /tmp
+work="$(mktemp -d "$(dirname "$out")/study-notes-build.XXXXXX")"
 trap 'rm -rf "$work"' EXIT
 
 meta=()
@@ -20,13 +25,15 @@ else
   awk 'done || !/^# / { print; next } { done=1 }' "$in" > "$work/raw.md"
 fi
 
-# Force a blank line before tables and lists (otherwise pandoc glues them to the previous paragraph),
+# Force a blank line before tables and lists (- * + or 1. 1)), otherwise pandoc glues them to the previous paragraph,
 # but not inside the YAML header or ``` code blocks
 awk 'NR==1 && /^---$/ { yaml=1; print; prev=$0; next }
      yaml { print; if (/^(---|\.\.\.)$/) yaml=0; prev=$0; next }
      /^```/ { code=!code; print; prev=$0; next }
      code { print; prev=$0; next }
-     { if ((/^\|/ && prev !~ /^\|/ && prev != "") || (/^- / && prev !~ /^(- |  )/ && prev != "" && prev != "---")) print ""; print; prev=$0 }' \
+     { item = "^([-*+]|[0-9]+[.)]) "
+       if ((/^\|/ && prev !~ /^\|/ && prev != "") || ($0 ~ item && prev !~ item && prev !~ /^  / && prev != "" && prev != "---")) print ""
+       print; prev=$0 }' \
   "$work/raw.md" > "$work/in.md"
 
 pandoc "$work/in.md" -f markdown -t html5 --template "$here/template.html" \
@@ -45,8 +52,15 @@ if [ -z "$browser" ]; then
   exit 1
 fi
 
-"$browser" --headless=new --disable-gpu --no-pdf-header-footer --virtual-time-budget=5000 \
-  --print-to-pdf="$out" "file://$work/out.html" >/dev/null 2>&1
+# Print into the work folder first, so a failed run never leaves an old or broken PDF looking like a new one
+if ! "$browser" --headless=new --disable-gpu --no-pdf-header-footer --virtual-time-budget=5000 \
+       --print-to-pdf="$work/out.pdf" "file://$work/out.html" >"$work/browser.log" 2>&1 \
+   || [ ! -s "$work/out.pdf" ]; then
+  echo "PDF could not be created. Browser output ($browser):" >&2
+  tail -n 20 "$work/browser.log" >&2
+  exit 1
+fi
+mv -f "$work/out.pdf" "$out"
 
 if command -v pdfinfo >/dev/null 2>&1; then
   echo "PDF created: $out ($(pdfinfo "$out" | awk '/^Pages/ {print $2}') pages)"

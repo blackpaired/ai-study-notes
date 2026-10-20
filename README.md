@@ -109,6 +109,10 @@ The YAML header at the top controls the cover page:
 ---
 title: "Heart<br>Understanding the connections"
 kicker: "Physiology · Module 2"
+lang: en                 # language of the notes, e.g. de
+toc-title: "Contents"    # heading of the table of contents, e.g. "Inhalt"
+why-label: "Why box"     # cover legend labels, e.g. "Warum-Box"
+mnemonic-label: "Mnemonic"   # e.g. "Eselsbrücke"
 subtitle: "How the heart works – with the <b>why</b>."
 legend:
   - name: "Core rules"
@@ -118,7 +122,7 @@ legend:
 ---
 ```
 
-To change the design (colours, fonts), edit `<skills-folder>/study-notes/template.html`.
+All fields except `title` are optional. To change the design (colours, fonts), edit `<skills-folder>/study-notes/template.html`. If you run `install.sh` again later, your changed template is kept as `template.html.backup`.
 
 ## Important
 

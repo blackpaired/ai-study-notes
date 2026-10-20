@@ -10,8 +10,21 @@ skills="${1:-$HOME/.claude/skills}"
 agents="${2:-$(dirname "$skills")/agents}"
 
 mkdir -p "$skills" "$agents"
+# Keep a customized template: reinstalling would otherwise overwrite it
+backup=""
+if [ -f "$skills/study-notes/template.html" ] && ! cmp -s "$skills/study-notes/template.html" "$here/skills/study-notes/template.html"; then
+  backup="$(mktemp)"
+  cp "$skills/study-notes/template.html" "$backup"
+elif [ -f "$skills/study-notes/template.html.backup" ]; then
+  # A backup from an earlier install that was not restored yet
+  backup="$(mktemp)"
+  cp "$skills/study-notes/template.html.backup" "$backup"
+fi
 rm -rf "$skills/study-notes"
 cp -r "$here/skills/study-notes" "$skills/"
+if [ -n "$backup" ]; then
+  mv "$backup" "$skills/study-notes/template.html.backup"
+fi
 # The skill also needs the checker instructions in its own folder (for tools without subagents)
 cp "$here/agents/study-notes-checker.md" "$skills/study-notes/"
 cp "$here/agents/study-notes-checker.md" "$agents/"
@@ -19,6 +32,10 @@ chmod +x "$skills/study-notes/build_pdf.sh"
 
 echo "✔ Skill installed:  $skills/study-notes/"
 echo "✔ Agent installed:  $agents/study-notes-checker.md"
+if [ -n "$backup" ]; then
+  echo "! Your changed template was saved as  $skills/study-notes/template.html.backup"
+  echo "  To keep using it:  mv \"$skills/study-notes/template.html.backup\" \"$skills/study-notes/template.html\""
+fi
 echo
 echo "Required programs:"
 missing=0
