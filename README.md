@@ -1,4 +1,4 @@
-# AI Learning Instructions
+# AI Study Notes
 
 A skill for **terminal AI agents** (AI coding agents / agentic CLIs such as Claude Code, Codex CLI, Gemini CLI, OpenCode …) that turns your study materials (PDFs, lecture notes, slides, even scans) into study notes that explain **why** things are the way they are. You don't just get a list of facts. A separate proofreading agent checks every fact against your sources, and the result is exported as a nicely formatted PDF.
 
@@ -32,8 +32,8 @@ A skill for **terminal AI agents** (AI coding agents / agentic CLIs such as Clau
 ## Installation
 
 ```bash
-git clone https://github.com/blackpaired/claude-learning-instructions.git
-cd claude-learning-instructions
+git clone https://github.com/blackpaired/ai-study-notes.git
+cd ai-study-notes
 bash install.sh
 ```
 
