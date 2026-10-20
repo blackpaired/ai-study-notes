@@ -32,7 +32,7 @@ A [Claude Code](https://claude.com/claude-code) skill that turns your study mate
 ## Installation
 
 ```bash
-git clone https://github.com/<your-username>/claude-learning-instructions.git
+git clone https://github.com/blackpaired/claude-learning-instructions.git
 cd claude-learning-instructions
 bash install.sh
 ```
