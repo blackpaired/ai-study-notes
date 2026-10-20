@@ -5,8 +5,8 @@ A [Claude Code](https://claude.com/claude-code) skill that turns your study mate
 ## What you get
 
 - **Core rules first:** 3–5 principles from which the rest can be derived.
-- **🔎 Why boxes** that explain the connections behind the facts.
-- **💡 Mnemonics** (only ones that are factually correct).
+- **Why boxes** that explain the connections behind the facts.
+- **Mnemonics** (only ones that are factually correct).
 - **Fact tables** taken from your materials, plus a final overview/comparison table.
 - **Proofreading agent** (`study-notes-checker`) that compares every line with the original sources and reports errors, missing content and doubtful explanations.
 - **PDF output** with a cover page, table of contents and colour-coded chapters.
@@ -86,8 +86,8 @@ If you edited the `.md` yourself, run:
 |---|---|
 | `## 3. Heading {.green}` | New chapter on a new page, in green (`gray blue green orange purple red teal pink`). Without `{.colour}` it inherits the previous colour. |
 | `### Subheading` | Subsection |
-| `**Why?** text …` | Teal 🔎 box. A directly following list or table is included. |
-| `**Mnemonic:** text …` | Orange 💡 box. A directly following list or table is included. |
+| `**Why?** text …` | Teal box. A directly following list or table is included. |
+| `**Mnemonic:** text …` | Orange box. A directly following list or table is included. |
 | `> text` | Blue info box |
 
 The box keywords (`Why`, `Mnemonic`, `Remember`) must be in English, even when the notes are in another language.
