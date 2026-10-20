@@ -10,8 +10,35 @@ skills="${1:-$HOME/.claude/skills}"
 agents="${2:-$(dirname "$skills")/agents}"
 
 mkdir -p "$skills" "$agents"
-rm -rf "$skills/study-notes"
+dest="$skills/study-notes"
+keep="$(mktemp -d)"
+trap 'rm -rf "$keep"' EXIT
+
+# Is this one of the templates we shipped (so the user did not change it)?
+# 355348631 6203 = cksum of the template before .template.orig existed
+is_stock() {
+  cmp -s "$1" "$here/skills/study-notes/template.html" && return 0
+  [ -f "$dest/.template.orig" ] && cmp -s "$1" "$dest/.template.orig" && return 0
+  [ "$(cksum < "$1" | awk '{print $1, $2}')" = "355348631 6203" ]
+}
+
+# Never lose the user's own files: my-template.html, earlier backups and a hand-edited template.html
+saved=""
+if [ -d "$dest" ]; then
+  for f in "$dest"/my-template.html "$dest"/template.html.backup*; do
+    if [ -f "$f" ]; then cp "$f" "$keep/"; fi
+  done
+  if [ -f "$dest/template.html" ] && ! is_stock "$dest/template.html"; then
+    saved="template.html.backup-$(date +%Y%m%d-%H%M%S)"
+    cp "$dest/template.html" "$keep/$saved"
+  fi
+fi
+rm -rf "$dest"
 cp -r "$here/skills/study-notes" "$skills/"
+cp "$here/skills/study-notes/template.html" "$dest/.template.orig"
+for f in "$keep"/*; do
+  if [ -f "$f" ]; then cp "$f" "$dest/"; fi
+done
 # The skill also needs the checker instructions in its own folder (for tools without subagents)
 cp "$here/agents/study-notes-checker.md" "$skills/study-notes/"
 cp "$here/agents/study-notes-checker.md" "$agents/"
@@ -19,6 +46,11 @@ chmod +x "$skills/study-notes/build_pdf.sh"
 
 echo "✔ Skill installed:  $skills/study-notes/"
 echo "✔ Agent installed:  $agents/study-notes-checker.md"
+if [ -n "$saved" ]; then
+  echo "! You had changed template.html. Your version was saved as  $dest/$saved"
+  echo "  To keep using it, rename it to my-template.html (build_pdf.sh uses that file automatically"
+  echo "  and future installs keep it):  mv \"$dest/$saved\" \"$dest/my-template.html\""
+fi
 echo
 echo "Required programs:"
 missing=0

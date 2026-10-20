@@ -23,10 +23,10 @@ Argument (optional): path to the folder or files containing the materials. If mi
 ### 2. Ask the user how the notes should look
 Ask one round of up to 4 questions, adapted to the subject. If your environment has a tool for multiple-choice questions, use it; otherwise ask them as a short numbered list in chat. Pattern:
 - **Structure:** How to organize it? (e.g. by nerve / by region / both). Mark the option that shows the most connections as "(Recommended)".
-- **Content** (multiSelect): e.g. connections with reasoning, derivations (location → function), clinical relevance/applications, mnemonics.
+- **Content** (several answers allowed): e.g. connections with reasoning, derivations (location → function), clinical relevance/applications, mnemonics.
 - **Scope:** everything or only a part.
 - **Style:** short / medium with tables (Recommended) / very detailed.
-If the questions are cancelled, ask them again as soon as the user asks for it.
+If the user skips the questions or does not answer them, use the recommended options and say which ones you chose. They can still change them later.
 
 ### 3. Write the notes (`<Topic>_Connections.md` in the materials folder)
 Structure:
@@ -45,6 +45,8 @@ Structure:
 ---
 title: "Topic<br>Understanding the connections"
 kicker: "Module name · Subject"
+lang: en                 # language of the notes, e.g. de, fr
+toc-title: "Contents"    # for other languages e.g. "Inhalt"
 subtitle: "One sentence on what this is about – with the <b>why</b>."
 legend:
   - name: "Core rules"
@@ -62,6 +64,7 @@ legend:
 ```
 - Colours: `gray blue green orange purple red teal pink`. One colour per major topic block, listed in `legend`.
 - Write YAML lists (`legend`) **indented** (`  - name:`).
+- For notes not in English, set `lang`, `toc-title` and the cover labels `why-label` / `mnemonic-label` (e.g. `"Warum-Box"`, `"Eselsbrücke"`) in the language of the notes.
 - A paragraph starting with `**Why` becomes a teal 🔎 box (a directly following list or table is included).
 - A paragraph starting with `**Mnemonic` / `**Remember` becomes an orange 💡 box (a directly following list or table is included).
 - The box keywords must stay in English (`Why`, `Mnemonic`, `Remember`) even when the notes are written in another language, e.g. `**Why?** Weil …`.
@@ -75,7 +78,8 @@ The proofreading instructions are in `study-notes-checker.md` in this skill's fo
 
 Give the checker:
 - the path to the notes,
-- the paths of all source files (`.md`, and for image-only PDFs also the original PDF or the rendered page images).
+- the paths of all source files (`.md`, and for image-only PDFs also the original PDF or the rendered page images),
+- which tables you read from page images, so the checker compares them against the images themselves and not against your transcription.
 
 Check its findings and apply the justified corrections. Briefly tell the user what was corrected.
 

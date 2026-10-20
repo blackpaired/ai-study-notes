@@ -1,8 +1,8 @@
 <!doctype html>
-<html lang="en">
+<html lang="$if(lang)$$lang$$else$en$endif$">
 <head>
 <meta charset="utf-8">
-<title>$if(pagetitle)$$pagetitle$$else$Lernzettel$endif$</title>
+<title>$if(pagetitle)$$pagetitle$$else$Study notes$endif$</title>
 <style>
 @page { size: A4; margin: 16mm 15mm 18mm 15mm; }
 :root {
@@ -27,7 +27,7 @@ body { font-family: "Fira Sans", "DejaVu Sans", sans-serif; font-size: 10.3pt; l
 
 /* Table of contents */
 nav#TOC { page-break-after: always; }
-nav#TOC::before { content: "Contents"; display: block; font-size: 20pt; font-weight: 700; margin-bottom: 10px; }
+nav#TOC .toc-title { display: block; font-size: 20pt; font-weight: 700; margin-bottom: 10px; }
 nav#TOC ul { list-style: none; padding-left: 0; margin: 0; }
 nav#TOC > ul > li { border-bottom: 1px solid var(--line); padding: 5px 0; }
 nav#TOC ul ul { padding-left: 16px; font-size: 9pt; color: var(--muted); columns: 2; }
@@ -81,12 +81,13 @@ a { color: inherit; }
 $for(legend)$
     <span><i class="c-$legend.color$"></i>$legend.name$</span>
 $endfor$
-    <span><i style="background:#0b7285"></i>🔎 Why box</span>
-    <span><i style="background:#b35c00"></i>💡 Mnemonic</span>
+    <span><i style="background:#0b7285"></i>🔎 $if(why-label)$$why-label$$else$Why box$endif$</span>
+    <span><i style="background:#b35c00"></i>💡 $if(mnemonic-label)$$mnemonic-label$$else$Mnemonic$endif$</span>
   </div>
 </section>
 $if(toc)$
 <nav id="TOC">
+<div class="toc-title">$if(toc-title)$$toc-title$$else$Contents$endif$</div>
 $table-of-contents$
 </nav>
 $endif$
