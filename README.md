@@ -1,6 +1,3 @@
-# claude-learning-instructions
-▎ Claude Code skill that turns your lecture PDFs into study notes that explain the why: fact-checked against your sources and exported as a clean PDF.
-
 # Claude Learning Instructions
 
 A [Claude Code](https://claude.com/claude-code) skill that turns your study materials (PDFs, lecture notes, slides, even scans) into study notes that explain **why** things are the way they are. You don't just get a list of facts. A separate proofreading agent checks every fact against your sources, and the result is exported as a nicely formatted PDF.
