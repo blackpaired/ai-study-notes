@@ -72,6 +72,19 @@ Then restart your AI agent.
 
 **Tool without skill support?** It still works: tell the AI *"follow the instructions in `<skills-folder>/study-notes/SKILL.md` for ~/Documents/Physiology/"*.
 
+## Use in Claude.ai or Claude Desktop
+
+Skills also work in the Claude apps (all plans, code execution must be on):
+
+1. Download **`study-notes.zip`** from the [latest release](https://github.com/blackpaired/ai-study-notes/releases/latest).
+2. In Claude, go to **Customize → Skills** ([claude.ai/customize/skills](https://claude.ai/customize/skills)), click **+**, then **Create skill → Upload a skill**, and choose the ZIP.
+3. Make sure **Settings → Capabilities → Create and edit files** is turned on.
+4. Upload your lecture notes in a chat and ask, e.g., *"make study notes from these files"*.
+
+If the PDF can't be built there (it needs pandoc and a Chromium-based browser), you get the `.md`, and you can build the PDF on your own computer with `build_pdf.sh`.
+
+Claude.ai allows only 200 characters for a skill description, so the ZIP has a shorter one. To build the ZIP yourself: `bash package_for_claude_ai.sh` (creates `dist/study-notes.zip`).
+
 ## Usage
 
 Put all materials for one exam into one folder, then in your AI agent type:

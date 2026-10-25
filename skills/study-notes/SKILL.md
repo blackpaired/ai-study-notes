@@ -11,6 +11,8 @@ Language: **if the user writes in the same language as the materials, use that l
 
 Argument (optional): path to the folder or files containing the materials. If missing, ask for it.
 
+**Running in Claude.ai or Claude Desktop** (files uploaded to the chat instead of a local folder): read the uploaded files directly – Claude can read PDFs itself, so `to_md.sh` is optional. Write every file you create (the notes `.md` and the PDF) to the outputs folder so the user can download it. Install missing Python packages with `pip` when needed. If a system program can't be installed there, say so briefly and use the fallback described in the step concerned. If `pandoc` or a Chromium-based browser is missing so `build_pdf.sh` can't run, deliver the `.md` and tell the user they can build the PDF on their own computer with the skill from GitHub (https://github.com/blackpaired/ai-study-notes).
+
 ## Workflow
 
 ### 1. Read the materials
