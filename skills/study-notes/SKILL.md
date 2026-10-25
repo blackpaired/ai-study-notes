@@ -7,7 +7,7 @@ description: Turns study materials (PDFs, lecture notes, tables, slides in a fol
 
 The user is studying for exams (any subject: medicine, law, sciences, languages …).
 Goal: study notes that **explain why things are the way they are**, with mnemonics, exported as a good-looking PDF.
-Language: match the language of the user and their materials. Friendly and easy to follow, but technically precise.
+Language: **if the user writes in the same language as the materials, use that language and don't ask.** If they differ (e.g. the user writes German, the materials are English) or the materials are mixed, **ask at the very start** – as the first question, as soon as you have seen the materials and before anything else – which language they want: the user's language or the language of the materials. Use the multiple-choice question tool if available, otherwise one short line in the chat. Then write the notes in that language (and set `lang` accordingly). This language question comes before the questions in step 2. Friendly and easy to follow, but technically precise.
 
 Argument (optional): path to the folder or files containing the materials. If missing, ask for it.
 

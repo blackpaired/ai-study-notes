@@ -69,7 +69,7 @@ Put all materials for one exam into one folder, then in your AI agent type:
 
 Plain language works too: *"make me study notes from ~/Documents/Physiology"*.
 
-The notes are written in the language of your materials. Some useful follow-ups:
+The notes are written in the language you write in. If your materials are in a different language, the AI asks you at the start which language you want. Some useful follow-ups:
 
 - "add 20 self-test questions with answers at the end"
 - "make the PDF more compact, don't start every chapter on a new page"
