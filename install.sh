@@ -2,7 +2,7 @@
 # Installs the study-notes skill and the proofreading agent for your terminal AI agent.
 # Usage: open a terminal in this folder and run
 #   bash install.sh [skills-folder] [agents-folder]
-# Defaults: ~/.claude/skills and ~/.claude/agents (used by Claude Code and read by some other tools).
+# Defaults: ~/.claude/skills and ~/.claude/agents (folders several AI tools read).
 # Pass the folders your AI tool loads skills/agents from to install somewhere else.
 set -euo pipefail
 here="$(cd "$(dirname "$0")" && pwd)"
