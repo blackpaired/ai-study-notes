@@ -2,6 +2,10 @@
 
 A skill for **terminal AI agents** (AI coding agents / agentic CLIs such as Claude Code, Codex CLI, Gemini CLI, OpenCode …) that turns your study materials (PDFs, lecture notes, slides, even scans) into study notes that explain **why** things are the way they are. You don't just get a list of facts. A separate proofreading agent checks every fact against your sources, and the result is exported as a nicely formatted PDF.
 
+![Demo study notes: cover, core rules and a chapter](examples/preview.png)
+
+*Three pages from the demo notes in [`examples`](examples): cover, core rules and a chapter with a why box and a mnemonic.*
+
 ## What you get
 
 - **Core rules first:** 3–5 principles from which the rest can be derived.
@@ -10,6 +14,15 @@ A skill for **terminal AI agents** (AI coding agents / agentic CLIs such as Clau
 - **Fact tables** taken from your materials, plus a final overview/comparison table.
 - **Proofreading agent** (`study-notes-checker`) that compares every line with the original sources and reports errors, missing content and doubtful explanations.
 - **PDF output** with a cover page, table of contents and colour-coded chapters.
+
+## Example
+
+The [`examples`](examples) folder contains short demo notes about the nerves of the arm:
+
+- [`Arm-nerves_Connections.md`](examples/Arm-nerves_Connections.md): the Markdown the AI writes
+- [`Arm-nerves_Connections.pdf`](examples/Arm-nerves_Connections.pdf): the finished PDF built from it
+
+Real notes cover all of your material. The demo only shows the structure.
 
 ## How it works
 
