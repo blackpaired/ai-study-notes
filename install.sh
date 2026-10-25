@@ -44,8 +44,8 @@ cp "$here/agents/study-notes-checker.md" "$skills/study-notes/"
 cp "$here/agents/study-notes-checker.md" "$agents/"
 chmod +x "$skills/study-notes/build_pdf.sh"
 
-echo "✔ Skill installed:  $skills/study-notes/"
-echo "✔ Agent installed:  $agents/study-notes-checker.md"
+echo "Skill installed:  $skills/study-notes/"
+echo "Agent installed:  $agents/study-notes-checker.md"
 if [ -n "$saved" ]; then
   echo "! You had changed template.html. Your version was saved as  $dest/$saved"
   echo "  To keep using it, rename it to my-template.html (build_pdf.sh uses that file automatically"
@@ -54,7 +54,7 @@ fi
 echo
 echo "Required programs:"
 missing=0
-check() { if command -v "$1" >/dev/null 2>&1; then echo "  ✔ $1"; else echo "  ✘ $1 missing  ($2)"; missing=1; fi; }
+check() { if command -v "$1" >/dev/null 2>&1; then echo "  ok       $1"; else echo "  MISSING  $1  ($2)"; missing=1; fi; }
 check markitdown  "pip install 'markitdown[all]'  or  pipx install 'markitdown[all]'"
 check pandoc      "package manager, e.g. sudo pacman -S pandoc / sudo apt install pandoc / brew install pandoc"
 check pdftoppm    "poppler: sudo pacman -S poppler / sudo apt install poppler-utils / brew install poppler"
@@ -66,7 +66,7 @@ done
 for app in "Google Chrome" "Chromium" "Brave Browser"; do
   [ -d "/Applications/$app.app" ] && browser=yes
 done
-if [ "$browser" = yes ]; then echo "  ✔ Chromium/Chrome/Brave"; else echo "  ✘ Chromium/Chrome/Brave missing (needed for the PDF)"; missing=1; fi
+if [ "$browser" = yes ]; then echo "  ok       Chromium/Chrome/Brave"; else echo "  MISSING  Chromium/Chrome/Brave (needed for the PDF)"; missing=1; fi
 
 echo
 [ "$missing" = 0 ] && echo "All set!" || echo "Please install the missing programs (see above)."

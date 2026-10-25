@@ -62,8 +62,6 @@ td:first-child { font-weight: 500; }
 .why > p:first-child strong:first-child { color: var(--why); }
 .merk { background: var(--merk-soft); border-color: var(--merk); }
 .merk > p:first-child strong:first-child { color: var(--merk); }
-.merk > p:first-child strong:first-child::before { content: "💡 "; }
-.why > p:first-child strong:first-child::before { content: "🔎 "; }
 blockquote { margin: 10px 0; padding: 8px 14px; background: var(--accent-soft); border-left: 4px solid var(--accent); border-radius: 8px; color: var(--ink); page-break-inside: avoid; }
 blockquote p { margin: 3px 0; }
 ul { padding-left: 20px; }
@@ -81,8 +79,8 @@ a { color: inherit; }
 $for(legend)$
     <span><i class="c-$legend.color$"></i>$legend.name$</span>
 $endfor$
-    <span><i style="background:#0b7285"></i>🔎 $if(why-label)$$why-label$$else$Why box$endif$</span>
-    <span><i style="background:#b35c00"></i>💡 $if(mnemonic-label)$$mnemonic-label$$else$Mnemonic$endif$</span>
+    <span><i style="background:#0b7285"></i>$if(why-label)$$why-label$$else$Why box$endif$</span>
+    <span><i style="background:#b35c00"></i>$if(mnemonic-label)$$mnemonic-label$$else$Mnemonic$endif$</span>
   </div>
 </section>
 $if(toc)$

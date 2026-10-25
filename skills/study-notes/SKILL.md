@@ -65,8 +65,8 @@ legend:
 - Colours: `gray blue green orange purple red teal pink`. One colour per major topic block, listed in `legend`.
 - Write YAML lists (`legend`) **indented** (`  - name:`).
 - For notes not in English, set `lang`, `toc-title` and the cover labels `why-label` / `mnemonic-label` (e.g. `"Warum-Box"`, `"Eselsbrücke"`) in the language of the notes.
-- A paragraph starting with `**Why` becomes a teal 🔎 box (a directly following list or table is included).
-- A paragraph starting with `**Mnemonic` / `**Remember` becomes an orange 💡 box (a directly following list or table is included).
+- A paragraph starting with `**Why` becomes a teal box (a directly following list or table is included).
+- A paragraph starting with `**Mnemonic` / `**Remember` becomes an orange box (a directly following list or table is included).
 - The box keywords must stay in English (`Why`, `Mnemonic`, `Remember`) even when the notes are written in another language, e.g. `**Why?** Weil …`.
 - Every `##` section starts on a new page, `###` are subsections.
 - `>` quotes become blue info boxes.
